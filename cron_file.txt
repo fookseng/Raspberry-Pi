@@ -1,0 +1,3 @@
+@reboot sleep 180 && python3 /home/pi/Desktop/Raspberry-Pi-master/button.py &
+@reboot sleep 120 && python3 /home/pi/Desktop/Raspberry-Pi-master/rpi_gpio.py
+0 * * * * python3 /home/pi/Desktop/Raspberry-Pi-master/rpi_gpio.py
