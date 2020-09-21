@@ -12,6 +12,7 @@ pressed = False
 end = 0
 start = 0
 total = 0
+id = 0
 def callback_1(channel):
     global end
     global start
@@ -28,6 +29,8 @@ def callback_1(channel):
 GPIO.add_event_detect(21, GPIO.BOTH, callback = callback_1, bouncetime = 100)
 while True:
     if total > 0 and total < 5:
+        os.system("pkill ffmpeg")
+        time.sleep(5)
         with open('/home/pi/Desktop/Raspberry-Pi-master/data.json', 'r') as js:
             dic = json.load(js)
             #dic['time1'] = dic['time1'] 
@@ -39,7 +42,9 @@ while True:
         os.system("python3 /home/pi/Desktop/Raspberry-Pi-master/rpi_gpio.py")
         #print("short pressed")
         total= 0
-    elif total >=5:
+    elif total >=5 and total <10:
+        os.system("pkill ffmpeg")
+        time.sleep(5)
         with open('/home/pi/Desktop/Raspberry-Pi-master/data.json', 'r') as js:
             dic = json.load(js)
             #dic['time1'] = dic['time1'] 
@@ -51,6 +56,10 @@ while True:
         os.system("python3 /home/pi/Desktop/Raspberry-Pi-master/rpi_gpio.py")
         #print("long pressed")
         total= 0
+    elif total >=10:
+        os.system("ffmpeg -f v4l2 -i /dev/camera1 -rtsp_transport tcp -f rtsp rtsp://localhost:8554/stream > /dev/null 2>&1 < /dev/null &")
+        id = os.getpid()
+        total = 0
     
         
 
