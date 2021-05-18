@@ -1,4 +1,5 @@
 # Raspberry-Pi
+## This repo is no longer maintained!
 Installation:
 1. pip install RPi.GPIO
 2. pip install RPistepper
